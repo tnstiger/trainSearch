@@ -61,20 +61,16 @@ function voiceReset() {
 }
 
 function parseVoice(voice) {
-    return voice.split('到').map(function(stationName) {
-        return stations[stationName];
-    });
+    return voice.split('到');
 }
 
-function getSearchData(codes, callback) {
-    var date = moment().format('YYYY/MM/DD');
-    var time = moment().format('HHmm');
-    var apiUrl = "http://www.madashit.com/api/get-Tw-Railway?date=" + date + "&fromstation=" + codes[0] + "&tostation=" + codes[1] + "&fromtime=" + time + "&totime=2359";
+function getSearchData(stations, callback) {
+    var apiUrl = "https://nu0poq52hf.execute-api.us-east-1.amazonaws.com/prod/train-api?fromstation=" + stations[0] + "&tostation=" + stations[1];
     $.ajax({
         url: apiUrl, // Or your web page link
         type: 'GET',
-        success: function(res) {
-            var data = JSON.parse(res.responseText.replace('<html><head/><body>﻿ ', '').replace('</body></html>', ''));
+        success: function(data) {
+            // var data = JSON.parse(res.responseText.replace('<html><head/><body>﻿ ', '').replace('</body></html>', ''));
             callback(data);
         }
     });
