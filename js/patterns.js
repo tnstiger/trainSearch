@@ -11,8 +11,8 @@
 
 var patterns = [{
         regex: '(.+)到(.+)',
-        pattern: '[車站]<span class="pattern">到</span>[車站]',
-        sample: '台北<span class="pattern">到</span>台南',
+        pattern: '[車站] 到 [車站]',
+        sample: '台北到台南',
         parse: function(matchs) {
             return {
                 fromstation: matchs[0],
@@ -25,8 +25,8 @@ var patterns = [{
     },
     {
         regex: '(昨天|今天|明天|後天|大後天)(早上|上午|中午|下午|傍晚|晚上)(.+)到(.+)',
-        pattern: '[哪天][時段][車站]<span class="pattern">到</span>[車站]',
-        sample: '明天早上台北<span class="pattern">到</span>台南',
+        pattern: '[哪天] [時段] [車站] 到 [車站]',
+        sample: '明天早上台北到台南',
         parse: function(matchs) {
             var searchdate = '';
             switch (matchs[0]) {
@@ -80,8 +80,8 @@ var patterns = [{
     },
     {
         regex: '(\\d+)月(\\d+)(號|日)(.+)到(.+)',
-        pattern: '[幾月幾號][車站]<span class="pattern">到</span>[車站]',
-        sample: '12月31號台北<span class="pattern">到</span>台南',
+        pattern: '[幾月幾號] [車站] 到 [車站]',
+        sample: '12月31號台北到台南',
         parse: function(matchs) {
             var searchdate = moment(moment().year()+'/'+matchs[0]+'/'+matchs[1], "YYYY-MM-DD").format('YYYY/MM/DD');
             return {
@@ -95,8 +95,8 @@ var patterns = [{
     },
     {
         regex: '(\\d+)月(\\d+)(號|日)(早上|上午|中午|下午|傍晚|晚上)(.+)到(.+)',
-        pattern: '[幾月幾號][時段][車站]<span class="pattern">到</span>[車站]',
-        sample: '12月31號早上台北<span class="pattern">到</span>台南',
+        pattern: '[幾月幾號] [時段] [車站] 到 [車站]',
+        sample: '12月31號早上台北到台南',
         parse: function(matchs) {
             var searchdate = moment(moment().year()+'/'+matchs[0]+'/'+matchs[1], "YYYY-MM-DD").format('YYYY/MM/DD');
 
