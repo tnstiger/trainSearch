@@ -1,4 +1,15 @@
-var recognizer = new webkitSpeechRecognition();
+window.SpeechRecognition = window.SpeechRecognition ||
+    window.webkitSpeechRecognition ||
+    null;
+if(window.SpeechRecognition){
+  var recognizer = new window.SpeechRecognition();
+}else{
+  var recognizer = {
+    abort: function(){},
+    start: function(){},
+  };
+}
+
 var vue_pattern;
 
 $(function() {
@@ -46,16 +57,16 @@ function voiceReset() {
     vue_pattern.selectedPattern = -1;
 
     // restart the recognizer
-    try{
+    try {
         recognizer.abort();
         recognizer.start();
-    }catch(e){}
+    } catch (e) {}
 
 }
 
 function noMatchPattern() {
-  $('#pattern_list').spin(false);
-  $('#error_msg').show(100);
+    $('#pattern_list').spin(false);
+    $('#error_msg').show(100);
 }
 
 function parseVoice() {
