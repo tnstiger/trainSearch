@@ -5,12 +5,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <title>火車時刻小幫手</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css">
+    <link rel="stylesheet" href="style/custom.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -21,28 +22,80 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="form-group form-inline">
-            <label class="control-label">你所查詢的是:</label>
-            <!-- <input class='form-control group-id' placeholder="Group ID" value='858731537526963' required> -->
-            <input class="form-control group-id" id='voice' placeholder="台北到台南">
-            <button type="button" class="btn btn-primary" onclick="voiceReset()">清空</button>
+    <nav class="navbar navbar-default custom-navbar" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <div class="navbar-brand">火車時刻小幫手</div>
+                <button class="navbar-toggle" data-target="#navbar-brand-centered" data-toggle="collapse" type="button">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-brand-centered">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="https://www.facebook.com/groups/858731537526963/" target='_blank'>
+                            <strong class="font-facebook">
+                              <i class="fa fa-facebook-square"></i> 好想工作室
+                            </strong>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div id='spin_el'></div>
-        <table id="table"></table>
+    </nav>
+    <div class="container">
+
+        <div class='col-xs-12 well bg-info'>
+            請允許麥克風，桌機上可以直接用說的方式輸入，手機必須用打的，或由鍵盤語音輸入。
+            <br> 不支援 IE 那個智障兒，語音操作僅支援 chrome。
+            <br> 有任何功能建議，歡迎聯絡 <a href='https://www.facebook.com/messages/chanwei.wu' target='_blank'>Howard</a>。
+            <br>
+        </div>
+
+        <div class='row'>
+            <div class='col-md-8'>
+                <div class="form-group form-inline">
+                    <label class="control-label">你所查詢的是:</label>
+                    <!-- <input class='form-control group-id' placeholder="Group ID" value='858731537526963' required> -->
+                    <input class="form-control group-id" id='voice' placeholder="台北到台南">
+                    <button type="button" class="btn btn-primary" onclick="parseVoice()">查詢</button>
+                    <button type="button" class="btn btn-danger" onclick="voiceReset()">重設</button>
+                </div>
+                <div id='error_msg' class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span> 不符合 Pattern
+                </div>
+                <table id="table"></table>
+            </div>
+            <div class='col-md-4'>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Pattern</div>
+                    <div id="pattern_list" class="panel-body">
+                        <ul>
+                            <li v-for="(pattern,index) in patterns" :class="[ (selectedPattern == index)? 'selected-pattern': '']" v-cloak>
+                                <div v-html="pattern.pattern"></div>
+                                <div>ex: <span v-html="pattern.sample"></span></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
     <script src="http://momentjs.com/downloads/moment.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.js"></script>
-    <script src="js/spin.js" charset="utf-8"></script>
-    <script src="js/jquery.spin.js" charset="utf-8"></script>
-    <!-- <script src="js/jquery.xdomainajax.js" charset="utf-8"></script> -->
-    <script src="js/speech.js" charset="utf-8"></script>
-    <!-- <script src="js/stations.js" charset="utf-8"></script> -->
+    <script src="js/third_part/spin.js" charset="utf-8"></script>
+    <script src="js/third_part/jquery.spin.js" charset="utf-8"></script>
+    <script src="js/patterns.js" charset="utf-8"></script>
+    <script src="js/main.js" charset="utf-8"></script>
 </body>
 
 </html>

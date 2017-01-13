@@ -1,0 +1,29 @@
+[v-cloak] {
+  display: none;
+}
+
+.pattern{
+  color: red;
+  font-weight: bolder;
+}
+
+.selected-pattern{
+  color: red;
+}
+
+.bg-info{
+  background-color: #f1f1f1;
+}
+
+#error_msg{
+  display: none;
+}
+
+.train-description > dt, .train-description > dd {
+  width: 50%;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.train-description > dd {
+    margin-left: 50%;
+}
