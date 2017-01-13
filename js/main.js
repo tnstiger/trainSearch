@@ -66,12 +66,11 @@ function parseVoice() {
         selectedPattern: -1,
     };
     patterns.forEach(function(obj, index) {
-        if (new RegExp(obj.regex, 'i').test(voice)) {
+        if (voice.match(obj.regex)) {
             var matchs = voice.match(obj.regex);
             matchs.shift();
             parseResult.selectedPattern = index;
             parseResult.params = obj.parse(matchs);
-            return;
         }
     })
 
